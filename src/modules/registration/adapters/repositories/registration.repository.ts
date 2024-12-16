@@ -4,7 +4,7 @@ import { IRegistrationRepository } from '../../domain/repositories/registration.
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
 
-export class registrationRepository implements IRegistrationRepository {
+export class RegistrationRepository implements IRegistrationRepository {
   async create(
     createRegistrationDto: CreateRegistrationDto,
   ): Promise<Registration> {

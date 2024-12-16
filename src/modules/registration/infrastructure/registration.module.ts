@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RegistrationController } from '../adapters/controllers/registration.controller';
-import { RegistrationService } from '../application/services/registration.service';
+import { RegistrationSchema } from '../adapters/mongo/registration.schema';
+import { RegistrationRepository } from '../adapters/repositories/registration.repository';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'Registration', schema: RegistrationService },
+      { name: 'Registration', schema: RegistrationSchema },
     ]),
   ],
-  controllers: [RegistrationController],
-  providers: [RegistrationService],
-  exports: [RegistrationService],
+  providers: [RegistrationRepository],
+  exports: [RegistrationRepository],
 })
 export class RegistrationModule {}
