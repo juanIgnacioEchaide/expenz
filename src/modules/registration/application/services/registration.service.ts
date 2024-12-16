@@ -1,4 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateRegistrationDto } from '../../adapters/dto/create-registration.dto';
+import { UpdateRegistrationDto } from '../../adapters/dto/update-registration.dto';
+import { Registration } from '../../domain/models/registration.model';
 
 @Injectable()
 export class RegistrationService {
@@ -33,7 +38,7 @@ export class RegistrationService {
       .exec();
   }
 
-  async remove(id: string): Promise<Registration> {
-    return this.registrationModel.findByIdAndRemove(id).exec();
+  async remove(id: string): Promise<void> {
+    await this.registrationModel.deleteOne({ _id: id }).exec();
   }
 }
