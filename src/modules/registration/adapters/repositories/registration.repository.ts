@@ -19,13 +19,16 @@ export class RegistrationRepository implements IRegistrationRepository {
 
     return registration;
   }
+
   findAll(): Promise<Registration[]> {
     throw new Error('Method not implemented.');
   }
+
   findOne(id: string): Promise<Registration | null> {
     console.log(id);
     return new Promise((resolve) => resolve(new Registration()));
   }
+
   update(
     id: string,
     update: Partial<UpdateRegistrationDto>,
