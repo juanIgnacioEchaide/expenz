@@ -3,9 +3,10 @@ import { CreateRegistrationDto } from '../../adapters/dto/create-registration.dt
 import { UpdateRegistrationDto } from '../../adapters/dto/update-registration.dto';
 import { Registration } from '../../domain/models/registration.model';
 import { IRegistrationRepository } from '../../domain/repositories/registration.repository';
+import { IRegistrationService } from '../../domain/services/registration.service';
 
 @Injectable()
-export class RegistrationService {
+export class RegistrationService implements IRegistrationService {
   constructor(
     private readonly registrationRepository: IRegistrationRepository,
   ) {}
@@ -28,8 +29,7 @@ export class RegistrationService {
     id: string,
     updateRegistrationDto: UpdateRegistrationDto,
   ): Promise<Registration | null> {
-    const update = { ...updateRegistrationDto };
-    return this.registrationRepository.update(id, update);
+    return this.registrationRepository.update(id, updateRegistrationDto);
   }
 
   async remove(id: string): Promise<void> {

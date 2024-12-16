@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsNumber, IsString } from 'class-validator';
 
 export class CreateRegistrationDto {
   @IsNotEmpty()
@@ -13,6 +13,9 @@ export class CreateRegistrationDto {
 
   @IsOptional()
   description?: string;
+
+  @IsString()
+  paymentDate: string;
 
   @IsOptional()
   paymentMethod?: string;
