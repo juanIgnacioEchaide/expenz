@@ -2,6 +2,7 @@ import { RegistrationBuilder } from '../../domain/builders/registration.builder'
 import { Registration } from '../../domain/models/registration.model';
 import { IRegistrationRepository } from '../../domain/repositories/registration.repository';
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
+import { UpdateRegistrationDto } from '../dto/update-registration.dto';
 
 export class registrationRepository implements IRegistrationRepository {
   async create(
@@ -27,7 +28,7 @@ export class registrationRepository implements IRegistrationRepository {
   }
   update(
     id: string,
-    update: Partial<Registration>,
+    update: Partial<UpdateRegistrationDto>,
   ): Promise<Registration | null> {
     console.log(id, update);
     return new Promise((resolve) => resolve(new Registration()));
