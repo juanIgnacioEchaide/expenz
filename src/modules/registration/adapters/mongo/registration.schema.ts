@@ -1,10 +1,27 @@
-import { Schema } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const RegistrationSchema = new Schema({
-  amount: { type: Number, required: true },
-  currency: { type: String, required: true },
-  recipient: { type: String, required: true },
-  description: { type: String },
-  paymentDate: { type: Date },
-  paymentMethod: { type: String },
-});
+export type RegistrationDocument = Registration & Document;
+
+@Schema()
+export class Registration {
+  @Prop()
+  amount: number;
+
+  @Prop()
+  currency: string;
+
+  @Prop()
+  recipient: string;
+
+  @Prop()
+  description: string;
+
+  @Prop({ default: new Date() })
+  paymentDate: Date;
+
+  @Prop()
+  paymentMethod: string;
+}
+
+export const RegistrationSchema = SchemaFactory.createForClass(Registration);
