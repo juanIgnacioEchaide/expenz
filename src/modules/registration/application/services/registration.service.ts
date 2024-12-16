@@ -1,44 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { CreateRegistrationDto } from '../../adapters/dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../../adapters/dto/update-registration.dto';
 import { Registration } from '../../domain/models/registration.model';
+import { IRegistrationRepository } from '../../domain/repositories/registration.repository';
 
 @Injectable()
 export class RegistrationService {
   constructor(
-    @InjectModel('Registration')
-    private readonly registrationModel: Model<Registration>,
+    private readonly registrationRepository: IRegistrationRepository,
   ) {}
 
   async create(
     createRegistrationDto: CreateRegistrationDto,
   ): Promise<Registration> {
-    const createdRegistration = new this.registrationModel(
-      createRegistrationDto,
-    );
-    return createdRegistration.save();
+    return this.registrationRepository.create(createRegistrationDto);
   }
 
   async findAll(): Promise<Registration[]> {
-    return this.registrationModel.find().exec();
+    return this.registrationRepository.findAll();
   }
 
-  async findOne(id: string): Promise<Registration> {
-    return this.registrationModel.findById(id).exec();
+  async findOne(id: string): Promise<Registration | null> {
+    return this.registrationRepository.findOne(id);
   }
 
   async update(
     id: string,
     updateRegistrationDto: UpdateRegistrationDto,
-  ): Promise<Registration> {
-    return this.registrationModel
-      .findByIdAndUpdate(id, updateRegistrationDto, { new: true })
-      .exec();
+  ): Promise<Registration | null> {
+    const update = { ...updateRegistrationDto };
+    return this.registrationRepository.update(id, update);
   }
 
   async remove(id: string): Promise<void> {
-    await this.registrationModel.deleteOne({ _id: id }).exec();
+    return this.registrationRepository.delete(id);
   }
 }
