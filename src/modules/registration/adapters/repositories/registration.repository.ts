@@ -21,7 +21,7 @@ export class RegistrationRepository implements IRegistrationRepository {
   }
 
   findAll(): Promise<Registration[]> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) => resolve([]));
   }
 
   findOne(id: string): Promise<Registration | null> {

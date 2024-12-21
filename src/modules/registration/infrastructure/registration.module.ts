@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RegistrationSchema } from '../adapters/mongo/registration.schema';
 import { RegistrationRepository } from '../adapters/repositories/registration.repository';
+import { RegistrationController } from '../adapters/controllers/registration.controller';
+import { RegistrationService } from '../application/services/registration.service';
 
 @Module({
   imports: [
@@ -9,7 +11,8 @@ import { RegistrationRepository } from '../adapters/repositories/registration.re
       { name: 'Registration', schema: RegistrationSchema },
     ]),
   ],
-  providers: [RegistrationRepository],
+  controllers: [RegistrationController],
+  providers: [RegistrationRepository, RegistrationService],
   exports: [RegistrationRepository],
 })
 export class RegistrationModule {}

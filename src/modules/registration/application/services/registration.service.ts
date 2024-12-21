@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { CreateRegistrationDto } from '../../adapters/dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../../adapters/dto/update-registration.dto';
 import { Registration } from '../../domain/models/registration.model';
-import { IRegistrationRepository } from '../../domain/repositories/registration.repository';
 import { IRegistrationService } from '../../domain/services/registration.service';
+import { RegistrationRepository } from '../../adapters/repositories/registration.repository';
 
 @Injectable()
 export class RegistrationService implements IRegistrationService {
   constructor(
-    private readonly registrationRepository: IRegistrationRepository,
+    private readonly registrationRepository: RegistrationRepository,
   ) {}
 
   async create(
