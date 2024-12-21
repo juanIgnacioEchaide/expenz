@@ -1,9 +1,15 @@
 import { Registration } from '../models/registration.model';
 
 export class RegistrationBuilder {
-  private registration: Registration = new Registration();
+  private registration: Partial<Registration>;
 
+  constructor() {
+    this.registration = {};
+  }
   withAmount(amount: number): RegistrationBuilder {
+    if (amount <= 0) {
+      throw new Error('Amount must be greater than zero.');
+    }
     this.registration.amount = amount;
     return this;
   }
@@ -34,6 +40,6 @@ export class RegistrationBuilder {
   }
 
   build(): Registration {
-    return this.registration;
+    return this.registration as Registration;
   }
 }

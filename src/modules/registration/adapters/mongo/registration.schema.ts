@@ -6,6 +6,9 @@ export type RegistrationDocument = Registration & Document;
 @Schema()
 export class Registration {
   @Prop()
+  id: string;
+
+  @Prop()
   amount: number;
 
   @Prop()
