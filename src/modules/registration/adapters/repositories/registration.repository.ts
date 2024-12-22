@@ -24,7 +24,9 @@ export class RegistrationRepository implements IRegistrationRepository {
       .withPaymentDate(new Date(createRegistrationDto.paymentDate))
       .withRecipient(createRegistrationDto.recipient);
 
-    const createdRegistration = new this.registrationModel(registrationData);
+    const createdRegistration = new this.registrationModel(
+      createRegistrationDto,
+    );
     return createdRegistration.save();
   }
 

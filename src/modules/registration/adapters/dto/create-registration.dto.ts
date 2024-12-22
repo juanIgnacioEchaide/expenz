@@ -1,22 +1,21 @@
-import { IsNotEmpty, IsOptional, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateRegistrationDto {
-  @IsNotEmpty()
   @IsNumber()
   amount: number;
 
-  @IsNotEmpty()
+  @IsString()
   currency: string;
 
-  @IsNotEmpty()
+  @IsString()
   recipient: string;
 
-  @IsOptional()
+  @IsString()
   description?: string;
 
   @IsString()
   paymentDate: string;
 
-  @IsOptional()
+  @IsString()
   paymentMethod?: string;
 }

@@ -8,22 +8,22 @@ export class Registration {
   @Prop()
   id: string;
 
-  @Prop()
+  @Prop({ default: 0 })
   amount: number;
 
-  @Prop()
+  @Prop({ default: '' })
   currency: string;
 
-  @Prop()
+  @Prop({ default: '' })
   recipient: string;
 
-  @Prop()
+  @Prop({ default: '' })
   description: string;
 
   @Prop({ default: new Date() })
   paymentDate: Date;
 
-  @Prop()
+  @Prop({ default: '' })
   paymentMethod: string;
 }
 
