@@ -1,6 +1,6 @@
 import { PaymentMethodProvider } from './payment-provider.model';
 
-enum PaymentMethodType {
+export enum PaymentMethodType {
   CREDIT_CARD = 'credit_card',
   CASH = 'cash',
   BANK_TRANSFER = 'bank_transfer',
@@ -10,14 +10,15 @@ enum PaymentMethodType {
 export class PaymentMethod {
   type: PaymentMethodType;
   provider: PaymentMethodProvider;
-  creditCard?: PaymentMethodProvider & {
-    issuer?: string;
-    lastFourDigits?: string;
-    adminProcessor?: 'VISA' | 'MASTERCARD' | 'AMEX';
+
+  creditCard?: {
+    issuer: string;
+    lastFourDigits: string;
+    adminProcessor: 'VISA' | 'MASTERCARD' | 'AMEX';
   };
-  bankTransfer?: PaymentMethodProvider & {
-    accountNumber?: string;
+
+  bankTransfer?: {
+    accountNumber: string;
     originalBranch: string;
   };
-  digitalWallet?: PaymentMethodProvider;
 }

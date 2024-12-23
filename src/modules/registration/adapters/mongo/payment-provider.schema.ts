@@ -1,6 +1,11 @@
-import { Prop } from '@nestjs/mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { PaymentMethodProvider } from '../../domain/models/payment-provider.model';
 
-export class PaymentMethodProvider {
+export type PaymentMethodProviderDocument = PaymentMethodProvider & Document;
+
+@Schema()
+export class ProviderSchema {
   @Prop({ required: true })
   name: string;
 
@@ -16,3 +21,6 @@ export class PaymentMethodProvider {
   @Prop()
   cbu?: string;
 }
+
+export const PaymentProviderSchema =
+  SchemaFactory.createForClass(ProviderSchema);
