@@ -6,8 +6,6 @@ import { IRegistrationRepository } from '../../domain/repositories/registration.
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
 import { RegistrationDocument } from '../mongo/registration.schema';
-import { RegistrationBuilder } from '../../domain/builders/registration.builder';
-
 export class RegistrationRepository implements IRegistrationRepository {
   constructor(
     @InjectModel(Registration.name)
@@ -17,13 +15,6 @@ export class RegistrationRepository implements IRegistrationRepository {
   async create(
     createRegistrationDto: CreateRegistrationDto,
   ): Promise<Registration> {
-    const registrationData = new RegistrationBuilder()
-      .withCurrency(createRegistrationDto.currency)
-      .withDescription(createRegistrationDto.description)
-      .withAmount(createRegistrationDto.amount)
-      .withPaymentDate(new Date(createRegistrationDto.paymentDate))
-      .withRecipient(createRegistrationDto.recipient);
-
     const createdRegistration = new this.registrationModel(
       createRegistrationDto,
     );

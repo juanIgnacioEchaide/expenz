@@ -1,3 +1,5 @@
+import { PaymentMethod } from './payment-method.model';
+
 export class Registration {
   id: string;
   amount: number;
@@ -5,5 +7,5 @@ export class Registration {
   recipient: string;
   description: string;
   paymentDate: Date;
-  paymentMethod: string;
+  paymentMethod: PaymentMethod;
 }

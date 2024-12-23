@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { PaymentMethod } from '../../domain/models/payment-method.model';
 
 export type RegistrationDocument = Registration & Document;
 
@@ -8,23 +9,23 @@ export class Registration {
   @Prop()
   id: string;
 
-  @Prop({ default: 0 })
+  @Prop()
   amount: number;
 
-  @Prop({ default: '' })
+  @Prop()
   currency: string;
 
-  @Prop({ default: '' })
+  @Prop()
   recipient: string;
 
-  @Prop({ default: '' })
+  @Prop()
   description: string;
 
-  @Prop({ default: new Date() })
+  @Prop({ default: Date.now })
   paymentDate: Date;
 
-  @Prop({ default: '' })
-  paymentMethod: string;
+  @Prop({ type: 'object' })
+  paymentMethod: PaymentMethod;
 }
 
 export const RegistrationSchema = SchemaFactory.createForClass(Registration);
