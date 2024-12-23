@@ -8,6 +8,8 @@ import {
 import { CreditCard } from '../../domain/models/credit-card.model';
 import { CreditCardSchema } from './credit-card.schema';
 import { PaymentProviderSchema } from './payment-provider.schema';
+import { BankTransferSchema } from './bank-transfer.schema';
+import { BankTransfer } from '../../domain/models/bank-transfer.model';
 
 export type PaymentMethodDocument = PaymentMethod & Document;
 
@@ -22,11 +24,8 @@ export class MethodSchema {
   @Prop({ required: false, type: CreditCardSchema })
   creditCard?: CreditCard;
 
-  @Prop()
-  bankTransfer?: {
-    accountNumber: string;
-    originalBranch: string;
-  };
+  @Prop({ required: false, type: BankTransferSchema })
+  bankTransfer?: BankTransfer;
 }
 
 export const PaymentMethodSchema = SchemaFactory.createForClass(MethodSchema);
