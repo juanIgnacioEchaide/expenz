@@ -12,13 +12,13 @@ export class ProviderSchema {
   @Prop({ required: true })
   userId: string;
 
-  @Prop()
+  @Prop({ required: false })
   alias?: string;
 
-  @Prop()
+  @Prop({ required: false })
   cvu?: string;
 
-  @Prop()
+  @Prop({ required: false })
   cbu?: string;
 }
 

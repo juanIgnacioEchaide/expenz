@@ -32,3 +32,4 @@ export class Registration {
 }
 
 export const RegistrationSchema = SchemaFactory.createForClass(Registration);
+RegistrationSchema.index({ 'paymentMethod.provider.name': 1 });
