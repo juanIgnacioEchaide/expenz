@@ -11,8 +11,8 @@ export class CreditCard {
   @Prop({ required: true })
   lastFourDigits: string;
 
-  @Prop({ required: true, enum: ['VISA', 'MASTERCARD', 'AMEX'] })
-  adminProcessor: 'VISA' | 'MASTERCARD' | 'AMEX';
+  @Prop({ required: true, enum: ['VISA', 'MASTER CARD', 'AMEX'] })
+  adminProcessor: 'VISA' | 'MASTER CARD' | 'AMEX';
 
   @Prop({ required: true })
   expiringDate: Date;
