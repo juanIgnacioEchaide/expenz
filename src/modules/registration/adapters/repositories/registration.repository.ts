@@ -31,8 +31,6 @@ export class RegistrationRepository implements IRegistrationRepository {
         throw new InvalidRegistrationDataException();
       }
 
-      console.log(error);
-
       throw error;
     }
   }
