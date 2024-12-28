@@ -6,7 +6,7 @@ export class InvalidRegistrationDataException extends BaseException {
     super(
       HttpStatus.NOT_ACCEPTABLE,
       'REGISTRATION',
-      'creation failed due to invalid data',
+      'FORBIDDEN - Creation failed due to invalid data',
     );
   }
 }
