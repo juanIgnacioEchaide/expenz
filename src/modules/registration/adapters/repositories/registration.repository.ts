@@ -1,24 +1,40 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-/* import { RegistrationBuilder } from '../../domain/builders/registration.builder'; */
+import { Model, MongooseError } from 'mongoose';
 import { Registration } from '../../domain/models/registration.model';
 import { IRegistrationRepository } from '../../domain/repositories/registration.repository';
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
 import { RegistrationDocument } from '../mongo/registration.schema';
+import { InvalidRegistrationDataException } from '../../infrastructure/exceptions/invalid-registration-data.exception';
+import { validateOrReject } from 'class-validator';
 export class RegistrationRepository implements IRegistrationRepository {
   constructor(
     @InjectModel(Registration.name)
     private readonly registrationModel: Model<RegistrationDocument>,
   ) {}
-
   async create(
     createRegistrationDto: CreateRegistrationDto,
   ): Promise<Registration> {
-    const createdRegistration = new this.registrationModel(
-      createRegistrationDto,
-    );
-    return createdRegistration.save();
+    try {
+      await validateOrReject(createRegistrationDto);
+
+      const createdRegistration = new this.registrationModel(
+        createRegistrationDto,
+      );
+      return await createdRegistration.save();
+    } catch (error) {
+      if (error instanceof Array) {
+        throw new InvalidRegistrationDataException();
+      }
+
+      if (error instanceof MongooseError) {
+        throw new InvalidRegistrationDataException();
+      }
+
+      console.log(error);
+
+      throw error;
+    }
   }
 
   async findAll(): Promise<Registration[]> {
