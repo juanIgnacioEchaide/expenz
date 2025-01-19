@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
@@ -41,5 +42,13 @@ export class RegistrationController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.registrationService.remove(id);
+  }
+
+  @Get('by-date-range')
+  async findByDateRange(
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
+  ) {
+    return this.registrationService.findByDateRange(startDate, endDate);
   }
 }

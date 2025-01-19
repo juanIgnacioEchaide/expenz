@@ -11,4 +11,8 @@ export interface IRegistrationService {
     updateRegistrationDto: UpdateRegistrationDto,
   ): Promise<Registration | null>;
   remove(id: string): Promise<void>;
+  findByDateRange(
+    startDate?: string,
+    endDate?: string,
+  ): Promise<Registration[]>;
 }

@@ -4,6 +4,7 @@ import { UpdateRegistrationDto } from '../../adapters/dto/update-registration.dt
 import { Registration } from '../../domain/models/registration.model';
 import { IRegistrationService } from '../../domain/services/registration.service';
 import { RegistrationRepository } from '../../adapters/repositories/registration.repository';
+import moment from 'moment';
 
 @Injectable()
 export class RegistrationService implements IRegistrationService {
@@ -34,5 +35,12 @@ export class RegistrationService implements IRegistrationService {
 
   async remove(id: string): Promise<void> {
     return this.registrationRepository.delete(id);
+  }
+
+  findByDateRange(
+    startDate: string = moment().subtract(1, 'month').toISOString(),
+    endDate: string = moment().toISOString(),
+  ): Promise<Registration[]> {
+    return this.registrationRepository.findByDateRange(startDate, endDate);
   }
 }

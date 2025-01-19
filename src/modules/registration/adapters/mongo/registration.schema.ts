@@ -29,6 +29,12 @@ export class Registration {
     required: true,
   })
   paymentMethod;
+
+  @Prop()
+  startDate?: Date;
+
+  @Prop()
+  endDate?: Date;
 }
 
 export const RegistrationSchema = SchemaFactory.createForClass(Registration);

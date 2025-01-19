@@ -11,4 +11,8 @@ export interface IRegistrationRepository {
     update: Partial<UpdateRegistrationDto>,
   ): Promise<Registration | null>;
   delete(id: string): Promise<void>;
+  findByDateRange(
+    startDate?: string,
+    endDate?: string,
+  ): Promise<Registration[]>;
 }
