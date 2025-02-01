@@ -6,6 +6,8 @@ import {
   Param,
   Put,
   Delete,
+  Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
@@ -41,5 +43,15 @@ export class RegistrationController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.registrationService.remove(id);
+  }
+
+  @Get('by-period') // Full path becomes '/registration/by-period'
+  async findByPeriod(@Query('start') start: string, @Query('end') end: string) {
+    console.log('Start:', start, 'End:', end); 
+    try {
+      return await this.registrationService.findByPeriod(start, end);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }

@@ -6,6 +6,7 @@ import { IRegistrationRepository } from '../../domain/repositories/registration.
 import { CreateRegistrationDto } from '../dto/create-registration.dto';
 import { UpdateRegistrationDto } from '../dto/update-registration.dto';
 import { RegistrationDocument } from '../mongo/registration.schema';
+import { BadRequestException } from '@nestjs/common';
 export class RegistrationRepository implements IRegistrationRepository {
   constructor(
     @InjectModel(Registration.name)
@@ -41,4 +42,33 @@ export class RegistrationRepository implements IRegistrationRepository {
   async delete(id: string): Promise<void> {
     await this.registrationModel.findByIdAndDelete(id).exec();
   }
+
+  async findByPeriod(start: string, end: string): Promise<Registration[]> {
+    if (!start || !end) {
+        throw new BadRequestException('Start and end dates are required.');
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        throw new BadRequestException('Invalid date format.');
+    }
+
+    console.log('Query:', {
+        paymentDate: {
+            $gte: startDate,
+            $lte: endDate,
+        },
+    });
+
+    return this.registrationModel
+        .find({
+            paymentDate: {
+                $gte: startDate,
+                $lte: endDate,
+            },
+        })
+        .exec();
+}
 }

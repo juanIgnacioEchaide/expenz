@@ -1,7 +1,8 @@
+import { Types } from 'mongoose';
 import { PaymentMethod } from './payment-method.model';
 
 export class Registration {
-  id: string;
+  _id: Types.ObjectId
   amount: number;
   currency: string;
   recipient: string;

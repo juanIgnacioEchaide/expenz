@@ -35,4 +35,19 @@ export class RegistrationService implements IRegistrationService {
   async remove(id: string): Promise<void> {
     return this.registrationRepository.delete(id);
   }
+
+  async findByPeriod(start: string, end: string): Promise<Registration[]> {
+    if (!start || !end) {
+      throw new Error('Start and end dates are required.');
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      throw new Error('Invalid date format.');
+    }
+
+    return this.registrationRepository.findByPeriod(start, end);
+  }
 }
